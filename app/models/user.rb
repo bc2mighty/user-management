@@ -1,3 +1,7 @@
 class User < ApplicationRecord
-    as_enum :gender, active: 1, inactive: 0
+    validates :name, presence: true
+    validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, presence: true
+    validates :phone, presence: true
+    validates :title, presence: true
+    validates :status, presence: true
 end
