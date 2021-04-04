@@ -88,13 +88,32 @@ section.user-mg-users-list {
         width: 76%;
         background: #fff;
         padding: 20px 1%;
-        box-sizing: border-box;
         padding-top: 5px;
+        padding-bottom: 50px;
+        box-sizing: border-box;
 
         table {
             width: 100%;
-        }
+            // table-layout: fixed;
+            // height: auto;
 
+            // tbody {
+            //     height: auto;
+    
+            //     tr {
+            //         height: 20px;
+            //     }
+            // }
+        }
+        
+        a.page-link {
+            display: inline-block;
+            height: auto;
+            width: auto;
+            padding: 5px;
+            box-sizing: border-box;
+            margin-right: 10px;
+        }
         /*
         .user-list-text {
             font-weight: bolder;
