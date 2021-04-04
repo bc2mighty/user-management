@@ -44,7 +44,10 @@ module Api
             def update
                 user = User.find(params[:id])
                 if user.update(user_params)
-                    render json: {status: true, message: 'Updated User', data:user}, status: :ok
+                    pages = User.all.size.to_i / 25
+                    users = User.order('updated_at DESC').limit(25).offset(0)
+
+                    render json: {status: true, message: 'Updated User', data:users, 'pages': pages}, status: :ok
                 else
                     render json: {status: false, message: user.errors}, status: :bad_request
                 end
