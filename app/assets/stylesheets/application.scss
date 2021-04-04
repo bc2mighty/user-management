@@ -26,12 +26,12 @@ section.user-mg-users-list {
     width: 100%;
     margin: 0 auto;
     display: flex;
-    padding: 10px 5%;
+    padding: 10px 2%;
     box-sizing: border-box;
     margin-top: 80px;
 
     .user-mg-users-list-left {
-        width: 25%;
+        width: 20%;
         margin-right: 3%;
         background: #fff;
         height: 120px;
@@ -85,8 +85,17 @@ section.user-mg-users-list {
     }
 
     .user-mg-users-list-right {
-        width: 73%;
+        width: 76%;
+        background: #fff;
+        padding: 20px 1%;
+        box-sizing: border-box;
+        padding-top: 5px;
 
+        table {
+            width: 100%;
+        }
+
+        /*
         .user-list-text {
             font-weight: bolder;
             margin-left: 20px;
@@ -163,6 +172,7 @@ section.user-mg-users-list {
             //     margin-right: 1.5%;
             // }
         }
+        */
     }
 }
 
@@ -171,6 +181,7 @@ section.user-mg-users-list {
     height: 100%;
     width: 100%;
     background: rgba(0,0,0,0.8);
+    display: none;
 
     .user-mgt-create-user, .user-mgt-update-user {
         height: 600px;

@@ -11,3 +11,10 @@ import "channels"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+$(document).ready(function() {
+    $('#table').DataTable( {
+        autoFill: true,
+        paging: false
+    });
+})
