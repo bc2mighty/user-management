@@ -1,24 +1,28 @@
-# README
+# User Management Application
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+**This is a simple user index application built with Ruby On Rails**
 
-Things you may want to cover:
+*Features Include*
 
-* Ruby version
+* A simple index of users
 
-* System dependencies
+* create a new user
 
-* Configuration
+* edit an existing user
 
-* Database creation
+* edit an existing user
 
-* Database initialization
+* edit an existing user
 
-* How to run the test suite
+* sort columns by attributes
 
-* Services (job queues, cache servers, search engines, etc.)
+* filter users via a search field
 
-* Deployment instructions
+* The index should contain at least 1000 users with seeded data
 
-* ...
+* The index should be paginated with 25 users per page
+
+* The user should never need to leave or reload the index view. All forms should be in
+modals and updates should update the table asynchronously
+
+* Assets should be configured correctly via webpacker
