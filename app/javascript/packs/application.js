@@ -17,19 +17,6 @@ $(document).ready(function() {
     let pages = 1;
     let users = []
 
-    // $('#table').DataTable( {
-    //     autoFill: true,
-    //     paging: false,
-    //     data: data,
-    //     columns: [
-    //         { data: 'name' },
-    //         { data: 'email' },
-    //         { data: 'phone' },
-    //         { data: 'title' }
-    //     ]
-    
-    // });
-
     $.ajax({
         url: `${api_url}/users?page=1`,
         method: 'GET',
@@ -51,15 +38,22 @@ $(document).ready(function() {
                 $(`tbody`).append(tr)
             })
 
+            $('#table').DataTable( {
+                paging: false,
+            });
+
             let link_tags = ``
             for(let i = 1; i <= pages; i++) {
-                if(i > 10) break
-                link_tags += `<a class="page-link page-number">${i}</a>`
+                link_tags += `<a href="#" class="page-link page-number">${i}</a>`
             }
             $(link_tags).insertAfter($(`.page-append`))
         },
         error: function(e) {
             console.log(e);
         }
+    })
+
+    $(document).on("click", ".page-link", function(e) {
+        e.preventDefault()
     })
 })
