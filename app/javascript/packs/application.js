@@ -13,7 +13,7 @@ Turbolinks.start()
 ActiveStorage.start()
 
 $(document).ready(function() {
-    let api_url = 'http://127.0.0.1:3000/api/v1';
+    let api_url = 'https://powerful-beach-60906.herokuapp.com/api/v1';
     let users = [];
     let page = 1;
     let id
@@ -102,7 +102,7 @@ $(document).ready(function() {
             $(`#edit-phone`).val(phone)
             $(`#edit-title`).val(title)
             $(`select#edit-status option[value=${status ? '1' : '0'}]`).attr('selected', 'true')
-            
+
             $(`.user-mgt-modal`).show()
             $(`.user-mgt-create-user`).hide()
             $(`.user-mgt-update-user`).show()
