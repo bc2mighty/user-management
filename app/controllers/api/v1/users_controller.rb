@@ -26,7 +26,10 @@ module Api
             def create
                 user = User.new(user_params)
                 if user.save
-                    render json: {status: true, message: 'Saved User', data:user}, status: :ok
+                    pages = User.all.size.to_i / 25
+                    users = User.order('updated_at DESC').limit(25).offset(0)
+
+                    render json: {status: true, message: 'Saved User', data:users, 'pages': pages}, status: :ok
                 else
                     render json: {status: false, message: user.errors}, status: :bad_request
                 end
