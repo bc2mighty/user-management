@@ -38,7 +38,9 @@ module Api
             def destroy
                 user = User.find(params[:id])
                 user.destroy
-                render json: {status: true, message: 'Deleted User', data:user}, status: :ok
+                pages = User.all.size.to_i / 25
+                users = User.order('updated_at DESC').limit(25).offset(0)
+                render json: {status: true, message: 'Deleted User', data:users, 'pages': pages}, status: :ok
             end
 
             def update

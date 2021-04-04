@@ -87,9 +87,6 @@ $(document).ready(function() {
 
     $(document).on("click", `a.btn`, function(e) {
         e.preventDefault()
-        $(`.user-mgt-modal`).show()
-        $(`.user-mgt-create-user`).hide()
-        $(`.user-mgt-update-user`).show()
 
         let user_id = $(this).attr('user-id')
         let user = users.filter((usr) => {
@@ -105,7 +102,14 @@ $(document).ready(function() {
             $(`#edit-phone`).val(phone)
             $(`#edit-title`).val(title)
             $(`select#edit-status option[value=${status ? '1' : '0'}]`).attr('selected', 'true')
+            
+            $(`.user-mgt-modal`).show()
+            $(`.user-mgt-create-user`).hide()
+            $(`.user-mgt-update-user`).show()
         } else if ($(this).hasClass('btn-delete')) {
+            if(confirm('Are you sure you want to delete user?')) {
+                deleteUser(id)
+            }
         }
     })
 
@@ -197,7 +201,6 @@ $(document).ready(function() {
             method: 'PUT',
             data: user,
             success: function(data) {
-                console.log(data);
                 table.destroy()
                 $(`tbody`).empty()
                 $(`.page-number`).remove()
@@ -259,6 +262,50 @@ $(document).ready(function() {
                 
                 Swal.fire(
                     'User Created Successfully!',
+                    'success'
+                )
+            },
+            error: function(e) {
+                let errors = e.responseJSON.message
+                let message = ``
+                
+                let error_keys = Object.keys(errors);
+                
+                for(const key of error_keys) {
+                    message += `${key}: `
+                    message += typeof errors[key] == 'array' ? `${errors[key].join(', ')}. ` : errors[key]
+                }
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: message
+                })
+            }
+        })
+    }
+
+    function deleteUser(id) {
+        $.ajax({
+            url: `${api_url}/users/${id}`,
+            method: 'DELETE',
+            success: function(data) {
+                table.destroy()
+                $(`tbody`).empty()
+                $(`.page-number`).remove()
+
+                let pages = parseInt(data.pages)
+                let count = 0
+                users = data.data
+
+                renderTable(data, count, pages)
+
+                $(`.user-mgt-modal`).hide()
+                $(`.user-mgt-create-user`).hide()
+                $(`.user-mgt-update-user`).hide()
+
+                Swal.fire(
+                    'User Deleted Successfully!',
                     'success'
                 )
             },
