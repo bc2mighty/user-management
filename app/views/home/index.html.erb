@@ -1,28 +1,28 @@
 <section class="user-mgt-modal">
     <div class="user-mgt-create-user">
         <h3>Create A New User</h3>
-        <div class="user-mgt-create-form">
+        <form class="user-mgt-create-form">
             <div class="form-control-container">
-                <input placeholder="Enter User's Name"/>
+                <input id="name" placeholder="Enter User's Name"/>
             </div>
             <div class="form-control-container">
-                <input placeholder="Enter User's Email"/>
+                <input id="email" placeholder="Enter User's Email"/>
             </div>
             <div class="form-control-container">
-                <input  placeholder="Enter User's Phone Number"/>
+                <input id="phone" placeholder="Enter User's Phone Number"/>
             </div>
             <div class="form-control-container">
-                <input  placeholder="Enter User's Title"/>
+                <input id="title" placeholder="Enter User's Title"/>
             </div>
             <div class="form-control-container">
-                <select>
+                <select id="status">
                     <option value="">Select Status</option>
                     <option value="1">Active</option>
                     <option value="0">Inactive</option>
                 </select>
             </div>
             <div class="form-control-container">
-                <button class="submit">
+                <button class="submit" id="create-user">
                     Submit
                 </button>
             </div>
@@ -31,12 +31,12 @@
                     Close
                 </button>
             </div>
-        </div>
+        </form>
     </div>
 
     <div class="user-mgt-update-user">
         <h3>Update User</h3>
-        <div class="user-mgt-create-form">
+        <form class="user-mgt-update-form">
             <div class="form-control-container">
                 <input placeholder="Enter User's Name"/>
             </div>
@@ -66,7 +66,7 @@
                     Close
                 </button>
             </div>
-        </div>
+        </form>
     </div>
 </section>
 
@@ -87,8 +87,8 @@
         -->
         <ul>
             <li>Menu</li>
-            <li><%= image_tag "skills" %>&nbsp;&nbsp;User List</li>
-            <li><%= image_tag "add-friend" %>&nbsp;&nbsp;Create User</li>
+            <li class="user-list"><%= image_tag "skills" %>&nbsp;&nbsp;User List</li>
+            <li class="new-user"><%= image_tag "add-friend" %>&nbsp;&nbsp;Create User</li>
         </ul>
     </div>
     <div class="user-mg-users-list-right">

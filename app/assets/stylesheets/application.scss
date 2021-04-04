@@ -94,6 +94,7 @@ section.user-mg-users-list {
 
         table {
             width: 100%;
+            z-index: 2;
             // table-layout: fixed;
             // height: auto;
 
@@ -114,6 +115,23 @@ section.user-mg-users-list {
             box-sizing: border-box;
             margin-right: 10px;
         }
+
+                    
+        a.btn {
+            display: inline-block;
+            height: 34px;
+            width: auto;
+            color: #fff;
+        }
+        
+        a.btn-delete {
+            background: #b53535;
+        }
+        
+        a.btn-edit {
+            background: #655d96;
+        }
+        
         /*
         .user-list-text {
             font-weight: bolder;
@@ -200,6 +218,7 @@ section.user-mg-users-list {
     height: 100%;
     width: 100%;
     background: rgba(0,0,0,0.8);
+    z-index: 10;
     display: none;
 
     .user-mgt-create-user, .user-mgt-update-user {

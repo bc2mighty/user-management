@@ -14,16 +14,18 @@ ActiveStorage.start()
 
 $(document).ready(function() {
     let api_url = 'http://127.0.0.1:3000/api/v1';
+    let users = [];
+    let page = 1;
 
     var table = $('#table').DataTable( {
         paging: false,
     });
     
-    loadUsers(1)
+    loadUsers(page)
 
     $(document).on("click", ".page-number", function(e) {
         e.preventDefault()
-        let page = parseInt($(this).text())
+        page = parseInt($(this).text())
         loadUsers(page)
     })
 
@@ -38,7 +40,7 @@ $(document).ready(function() {
             success: function(data) {
                 let pages = parseInt(data.pages)
                 let count = 0
-                console.log(data.data)
+                users = data.data
 
                 data.data.forEach(user => {
                     let tr = `
@@ -49,7 +51,10 @@ $(document).ready(function() {
                             <td>${user.phone}</td>
                             <td>${user.title}</td>
                             <td><span style="color:${user.status ? 'green">active' : 'red">inactive'}</span></td>
-                            <td></td>
+                            <td>
+                                <a href="#" class="btn btn-edit">Edit</a>
+                                <a href="#" class="btn btn-delete">Delete</a>
+                            </td>
                         </tr>
                     `
                     $(`tbody`).append(tr)
@@ -70,4 +75,24 @@ $(document).ready(function() {
             }
         })
     }
+
+    $(`.new-user`).click(function(e) {
+        e.preventDefault()
+        $(`.user-mgt-modal`).show()
+        $(`.user-mgt-create-user`).show()
+        $(`.user-mgt-update-user`).hide()
+    })
+
+    $(`button.close`).on('click', function(e) {
+        e.preventDefault()
+        $(`.user-mgt-modal`).hide()
+        $(`.user-mgt-create-user`).hide()
+        $(`.user-mgt-update-user`).hide()
+    })
+
+    $(`form.user-mgt-create-form`).on("submit", function(e) {
+        e.preventDefault()
+        let inputs = $(`form.user-mgt-create-form input, form.user-mgt-create-form select`)
+        console.log(inputs);
+    })
 })
