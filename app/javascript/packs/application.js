@@ -14,46 +14,60 @@ ActiveStorage.start()
 
 $(document).ready(function() {
     let api_url = 'http://127.0.0.1:3000/api/v1';
-    let pages = 1;
-    let users = []
 
-    $.ajax({
-        url: `${api_url}/users?page=1`,
-        method: 'GET',
-        success: function(data) {
-            pages = parseInt(data.pages)
-            let count = 0
-            data.data.forEach(user => {
-                let tr = `
-                    <tr>
-                        <td>${++count}</td>
-                        <td>${user.name}</td>
-                        <td>${user.email}</td>
-                        <td>${user.phone}</td>
-                        <td>${user.title}</td>
-                        <td><span style="color:${user.status ? 'green">active' : 'red">inactive'}</span></td>
-                        <td></td>
-                    </tr>
-                `
-                $(`tbody`).append(tr)
-            })
+    var table = $('#table').DataTable( {
+        paging: false,
+    });
+    
+    loadUsers(1)
 
-            $('#table').DataTable( {
-                paging: false,
-            });
-
-            let link_tags = ``
-            for(let i = 1; i <= pages; i++) {
-                link_tags += `<a href="#" class="page-link page-number">${i}</a>`
-            }
-            $(link_tags).insertAfter($(`.page-append`))
-        },
-        error: function(e) {
-            console.log(e);
-        }
-    })
-
-    $(document).on("click", ".page-link", function(e) {
+    $(document).on("click", ".page-number", function(e) {
         e.preventDefault()
+        let page = parseInt($(this).text())
+        loadUsers(page)
     })
+
+    function loadUsers (page) {
+        table.destroy()
+        $(`tbody`).empty()
+        $(`.page-number`).remove()
+        
+        $.ajax({
+            url: `${api_url}/users?page=${page}`,
+            method: 'GET',
+            success: function(data) {
+                let pages = parseInt(data.pages)
+                let count = 0
+                console.log(data.data)
+
+                data.data.forEach(user => {
+                    let tr = `
+                        <tr>
+                            <td>${++count}</td>
+                            <td>${user.name}</td>
+                            <td>${user.email}</td>
+                            <td>${user.phone}</td>
+                            <td>${user.title}</td>
+                            <td><span style="color:${user.status ? 'green">active' : 'red">inactive'}</span></td>
+                            <td></td>
+                        </tr>
+                    `
+                    $(`tbody`).append(tr)
+                })
+
+                table = $('#table').DataTable( {
+                    paging: false,
+                });
+    
+                let link_tags = ``
+                for(let i = 1; i <= pages; i++) {
+                    link_tags += `<a href="#" class="page-link page-number">${i}</a>`
+                }
+                $(link_tags).insertAfter($(`.page-append`))
+            },
+            error: function(e) {
+                console.log(e);
+            }
+        })
+    }
 })
