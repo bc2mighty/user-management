@@ -4,8 +4,12 @@ module Api
             protect_from_forgery prepend: true
 
             def index
-                users = User.order('created_at DESC')
-                render json: {status: true, message: 'Loaded Users', data:users, 'env': ENV["GMAIL_USERNAME"]}, status: :ok
+                if params.key?"page"
+                    users = User.order('updated_at DESC').limit(25).offset(params['page'].to_i - 1 * 25)
+                    render json: {status: true, message: 'Loaded Users', data:users}, status: :ok
+                else
+                    render json: {status: false, message: 'Please Provide Page'}, status: :bad_request
+                end
             end
 
             def show
