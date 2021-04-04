@@ -5,8 +5,10 @@ module Api
 
             def index
                 if params.key?"page"
-                    users = User.order('updated_at DESC').limit(25).offset(params['page'].to_i - 1 * 25)
-                    render json: {status: true, message: 'Loaded Users', data:users}, status: :ok
+                    pages = User.all.size.to_i / 25
+                    page = (params['page'].to_i - 1) * 25
+                    users = User.order('updated_at DESC').limit(25).offset(page)
+                    render json: {status: true, message: 'Loaded Users', data:users, 'pages': pages}, status: :ok
                 else
                     render json: {status: false, message: 'Please Provide Page'}, status: :bad_request
                 end
